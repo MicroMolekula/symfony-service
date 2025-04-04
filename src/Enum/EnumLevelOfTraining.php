@@ -5,20 +5,19 @@ namespace App\Enum;
 
 enum EnumLevelOfTraining: string
 {
-    case BEGINNER = 'beginner';
-    case AMATEUR = 'amateur';
-    case INTERMEDIATE = 'intermediate';
-    case ADVANCED = 'advanced';
-    case PROFESSIONAL = 'professional';
+    case NEVER_TRAINED = 'never_trained';
+    case WALKED = 'walked';
+    case MAINTAINED = 'maintained';
+    case ACTIVE = 'active';
 
     public function getLabel(): string
     {
         return match($this) {
-            self::BEGINNER => 'Новичок',
-            self::AMATEUR => 'Любитель',
-            self::INTERMEDIATE => 'Средний уровень',
-            self::ADVANCED => 'Продвинутый',
-            self::PROFESSIONAL => 'Профессионал',
+            self::NEVER_TRAINED => 'Ничего не делал',
+            self::WALKED => 'Ходил пешком',
+            self::MAINTAINED => 'Поддерживал форму',
+            self::ACTIVE => 'Активно упражнялся',
+
         };
     }
 }

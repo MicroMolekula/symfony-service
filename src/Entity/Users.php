@@ -36,19 +36,17 @@ class Users
     #[ORM\Column(enumType: EnumGender::class)]
     private ?EnumGender $gender = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $physical_limitations = null;
 
-    #[ORM\Column(enumType: EnumLevelOfTraining::class)]
+
+    #[ORM\Column(enumType: EnumLevelOfTraining::class, nullable: true)]
     private ?EnumLevelOfTraining $level_of_training = null;
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true, enumType: EnumAllergy::class)]
-    private ?array $allergy = null;
+
 
     #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true, enumType: EnumInventory::class)]
     private ?array $inventory = null;
 
-    #[ORM\Column(enumType: EnumTarget::class)]
+    #[ORM\Column(enumType: EnumTarget::class, nullable: true)]
     private ?EnumTarget $target = null;
 
     /**
@@ -62,6 +60,26 @@ class Users
      */
     #[ORM\OneToMany(targetEntity: Messages::class, mappedBy: 'user')]
     private Collection $messages;
+
+
+
+    #[ORM\Column(nullable: true)]
+    private ?int $weight = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $age = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $height = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $desired_weight = null;
+
+    #[ORM\Column]
+    private ?bool $filled_in_data = false;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $details = null;
 
     public function __construct()
     {
@@ -134,17 +152,7 @@ class Users
         return $this;
     }
 
-    public function getPhysicalLimitations(): ?string
-    {
-        return $this->physical_limitations;
-    }
 
-    public function setPhysicalLimitations(string $physical_limitations): static
-    {
-        $this->physical_limitations = $physical_limitations;
-
-        return $this;
-    }
 
     public function getLevelOfTraining(): ?EnumLevelOfTraining
     {
@@ -158,20 +166,6 @@ class Users
         return $this;
     }
 
-    /**
-     * @return EnumAllergy[]|null
-     */
-    public function getAllergy(): ?array
-    {
-        return $this->allergy;
-    }
-
-    public function setAllergy(?array $allergy): static
-    {
-        $this->allergy = $allergy;
-
-        return $this;
-    }
 
     /**
      * @return EnumInventory[]|null
@@ -256,6 +250,80 @@ class Users
                 $message->setUserId(null);
             }
         }
+
+        return $this;
+    }
+
+
+
+    public function getWeight(): ?int
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(?int $weight): static
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(?int $age): static
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getHeight(): ?float
+    {
+        return $this->height;
+    }
+
+    public function setHeight(?float $height): static
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    public function getDesiredWeight(): ?int
+    {
+        return $this->desired_weight;
+    }
+
+    public function setDesiredWeight(?int $desired_weight): static
+    {
+        $this->desired_weight = $desired_weight;
+
+        return $this;
+    }
+
+    public function isFilledInData(): ?bool
+    {
+        return $this->filled_in_data;
+    }
+
+    public function setFilledInData(bool $filled_in_data): static
+    {
+        $this->filled_in_data = $filled_in_data;
+
+        return $this;
+    }
+
+    public function getDetails(): ?string
+    {
+        return $this->details;
+    }
+
+    public function setDetails(?string $details): static
+    {
+        $this->details = $details;
 
         return $this;
     }

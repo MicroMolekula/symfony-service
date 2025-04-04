@@ -12,15 +12,19 @@ class Messages
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['user:read'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['user:read'])]
     private ?string $context = null;
 
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?bool $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
