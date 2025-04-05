@@ -12,19 +12,19 @@ class Plans
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read'])]
+    #[Groups(['plan:read'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups(['user:read'])]
+    #[Groups(['plan:read'])]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read'])]
+    #[Groups(['plan:read'])]
     private ?string $dishes = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:read'])]
+    #[Groups(['plan:read'])]
     private ?string $exercises = null;
 
     #[ORM\ManyToOne(inversedBy: 'plans')]
