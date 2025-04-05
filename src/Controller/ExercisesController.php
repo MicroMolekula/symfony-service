@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use \App\Enum\EnumInventory;
 use \App\Enum\EnumTarget;
-#[Route('/api/exercises')]
+#[Route('/exercises')]
 class ExercisesController extends AbstractController
 {
     public function __construct(
