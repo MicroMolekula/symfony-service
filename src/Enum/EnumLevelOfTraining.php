@@ -5,17 +5,17 @@ namespace App\Enum;
 
 enum EnumLevelOfTraining: string
 {
-    case NEVER_TRAINED = 'never_trained';
-    case WALKED = 'walked';
-    case MAINTAINED = 'maintained';
+    case NOTHING = 'nothing';
+    case WALK = 'walk';
+    case FIT = 'fit';
     case ACTIVE = 'active';
 
     public function getLabel(): string
     {
         return match($this) {
-            self::NEVER_TRAINED => 'Ничего не делал',
-            self::WALKED => 'Ходил пешком',
-            self::MAINTAINED => 'Поддерживал форму',
+            self::NOTHING => 'Ничего не делал',
+            self::WALK => 'Ходил пешком',
+            self::FIT => 'Поддерживал форму',
             self::ACTIVE => 'Активно упражнялся',
 
         };
