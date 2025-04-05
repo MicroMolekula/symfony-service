@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use \App\Enum\EnumInventory;
+use \App\Enum\EnumTarget;
 #[Route('/api/exercises')]
 class ExercisesController extends AbstractController
 {
@@ -73,5 +74,46 @@ class ExercisesController extends AbstractController
         $this->em->flush();
 
         return $this->json(null, 204);
+    }
+    #[Route('/search', methods: ['POST'])]
+    public function search(Request $request, ExercisesRepository $repo): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return $this->json(['error' => 'Invalid JSON'], 400);
+        }
+
+        $types = $data['types'] ?? [];
+        $inventories = $data['inventories'] ?? [];
+
+        // Валидируем значения
+        $validTypes = [];
+        foreach ($types as $type) {
+            try {
+                $validTypes[] = EnumTarget::from($type);
+            } catch (\ValueError $e) {
+                continue;
+            }
+        }
+
+        $validInventories = [];
+        foreach ($inventories as $inventory) {
+            try {
+                $validInventories[] = EnumInventory::from($inventory);
+            } catch (\ValueError $e) {
+                continue;
+            }
+        }
+
+        // Если нет валидных значений для одного из параметров - возвращаем пустой результат
+        if (empty($validTypes) || empty($validInventories)) {
+            return $this->json([], 200, [], ['groups' => ['exercise:read']]);
+        }
+
+        // Ищем упражнения, где есть хотя бы одно совпадение в type и хотя бы одно в inventory
+        $exercises = $repo->findByTypesAndInventory($validTypes, $validInventories);
+
+        return $this->json($exercises, 200, [], ['groups' => ['exercise:read']]);
     }
 }

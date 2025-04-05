@@ -14,6 +14,7 @@ class Products
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product:read'])]
     private ?string $name = null;
 
     public function getId(): ?int

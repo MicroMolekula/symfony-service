@@ -17,12 +17,15 @@ class Exercises
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['exercise:read'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::SIMPLE_ARRAY, enumType: EnumTarget::class)]
+    #[Groups(['exercise:read'])]
     private array $type = [];
 
     #[ORM\Column(type: Types::SIMPLE_ARRAY, enumType: EnumInventory::class)]
+    #[Groups(['exercise:read'])]
     private array $inventory = [];
 
     public function getId(): ?int
