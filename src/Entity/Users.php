@@ -12,7 +12,7 @@ use \App\Enum\EnumLevelOfTraining;
 use \App\Enum\EnumAllergy;
 use \App\Enum\EnumInventory;
 use \App\Enum\EnumTarget;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 class Users
 {
@@ -22,31 +22,38 @@ class Users
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user_details'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user_details'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\Column]
+    #[Groups(['user_details'])]
     private ?int $yandex_id = null;
 
     #[ORM\Column(enumType: EnumGender::class)]
+    #[Groups(['user_details'])]
     private ?EnumGender $gender = null;
 
 
 
     #[ORM\Column(enumType: EnumLevelOfTraining::class, nullable: true)]
+    #[Groups(['user_details'])]
     private ?EnumLevelOfTraining $level_of_training = null;
 
 
 
-    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true, enumType: EnumInventory::class)]
-    private ?array $inventory = null;
+    #[ORM\Column(enumType: EnumInventory::class, nullable: true)]
+    #[Groups(['user_details'])]
+    private ?EnumInventory $inventory = null;
 
     #[ORM\Column(enumType: EnumTarget::class, nullable: true)]
+    #[Groups(['user_details'])]
     private ?EnumTarget $target = null;
 
     /**
@@ -91,7 +98,12 @@ class Users
     {
         return $this->id;
     }
+    public function setId(int $id): static
+    {
+        $this->id = $id;
 
+        return $this;
+    }
     public function getName(): ?string
     {
         return $this->name;
@@ -168,14 +180,14 @@ class Users
 
 
     /**
-     * @return EnumInventory[]|null
+     * @return EnumInventory|null
      */
-    public function getInventory(): ?array
+    public function getInventory(): ?EnumInventory
     {
         return $this->inventory;
     }
 
-    public function setInventory(?array $inventory): static
+    public function setInventory(?EnumInventory $inventory): static
     {
         $this->inventory = $inventory;
 
