@@ -197,9 +197,12 @@ class UserController extends AbstractController
 
         try {
             $this->entityManager->flush();
-            return new JsonResponse(true);
+            return new JsonResponse(['success' => true]);
         } catch (\Exception $e) {
-            return new JsonResponse(['error' => 'Failed to update user: ' . $e->getMessage()], 500);
+            return new JsonResponse([
+                'success' => false,
+                'error' => 'Failed to update user: ' . $e->getMessage()
+            ], 500);
         }
     }
 
