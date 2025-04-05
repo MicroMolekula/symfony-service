@@ -15,7 +15,7 @@ use \App\Enum\EnumGender;
 use \App\Enum\EnumLevelOfTraining;
 use \App\Enum\EnumInventory;
 use \App\Enum\EnumTarget;
-#[Route('/api/user')]
+#[Route('/user')]
 class UserController extends AbstractController
 {
     private SerializerInterface $serializer;
