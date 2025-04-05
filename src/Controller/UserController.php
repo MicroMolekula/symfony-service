@@ -159,9 +159,9 @@ class UserController extends AbstractController
         }
         if (isset($data['equipment'])) {
             try {
-                $user->setTarget(EnumTarget::from($data['equipment']));
+                $user->setInventory(EnumInventory::from($data['equipment']));
             } catch (\ValueError $e) {
-                return $this->jsonError('inventory', EnumTarget::cases());
+                return $this->jsonError('inventory', EnumInventory::cases());
             }
         }
         // Обработка массива enum'ов (inventory)

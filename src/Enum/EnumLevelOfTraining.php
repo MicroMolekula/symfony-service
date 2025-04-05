@@ -10,6 +10,8 @@ enum EnumLevelOfTraining: string
     case FIT = 'fit';
     case ACTIVE = 'active';
 
+    case EMPTY = '';
+
     public function getLabel(): string
     {
         return match($this) {
@@ -17,7 +19,7 @@ enum EnumLevelOfTraining: string
             self::WALK => 'Ходил пешком',
             self::FIT => 'Поддерживал форму',
             self::ACTIVE => 'Активно упражнялся',
-
+            self::EMPTY => '',
         };
     }
 }
